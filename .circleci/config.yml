@@ -29,4 +29,3 @@ workflows:
   example-workflow:
     jobs:
       - cicd-tests-and-lint
-
