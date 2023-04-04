@@ -17,8 +17,7 @@ const addRouters = () => {
 
 app.get("/", (req, res) => {
   console.log("New request from HomePage.");
-  res.json({ message: 'Hi from srever' });
-  // res.send("<h1>Hi from srever<h1/>");
+  res.json({ message: "Hi from srever" });
 });
 
 const startServer = async () => {
