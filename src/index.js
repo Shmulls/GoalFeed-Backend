@@ -6,6 +6,7 @@ import cors from "cors";
 import authRouter from "./routes/AuthRoute.js";
 
 const app = express();
+const connectDB = require("./config/connectDB.js");
 
 const configureApp = () => {
   app.use(cors());
@@ -30,3 +31,5 @@ const startServer = async () => {
 };
 
 await startServer();
+
+// mongodb+srv://shmuel1234:<password>@goalfeed.xiwf2yr.mongodb.net/?retryWrites=true&w=majority
