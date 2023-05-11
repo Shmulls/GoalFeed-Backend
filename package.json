@@ -1,7 +1,7 @@
 {
   "name": "studnet",
   "version": "1.0.0",
-  "description": "web site for sharing student info",
+  "description": "GoalFeed",
   "main": "index.js",
   "type": "module",
   "scripts": {
