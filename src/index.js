@@ -32,4 +32,4 @@ const startServer = async () => {
 
 await startServer();
 
-// mongodb+srv://shmuel1234:<password>@goalfeed.xiwf2yr.mongodb.net/?retryWrites=true&w=majority
+//// mongodb+srv://shmuel1234:<password>@goalfeed.xiwf2yr.mongodb.net/?retryWrites=true&w=majority
