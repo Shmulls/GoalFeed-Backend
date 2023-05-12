@@ -1,2 +1,1 @@
-# StudNet
-Web site for sharing academic information for student
+#Backend project.
