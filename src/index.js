@@ -4,9 +4,11 @@
 import express from "express";
 import cors from "cors";
 import authRouter from "./routes/AuthRoute.js";
+import connectDB from "./config/connectDB.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
-// const connectDB = require("./config/connectDB.js");
 
 const configureApp = () => {
   app.use(cors());
@@ -24,6 +26,7 @@ app.get("/", (req, res) => {
 const startServer = async () => {
   configureApp();
   addRouters();
+  await connectDB();
   const port = process.env.PORT || 4000;
   app.listen(port, () => {
     console.log(`Server is up and running at port: ${port}`);
@@ -31,5 +34,3 @@ const startServer = async () => {
 };
 
 await startServer();
-
-//// mongodb+srv://shmuel1234:<password>@goalfeed.xiwf2yr.mongodb.net/?retryWrites=true&w=majority
