@@ -6,6 +6,8 @@ import cors from "cors";
 import authRouter from "./routes/AuthRoute.js";
 import connectDB from "./config/connectDB.js";
 import dotenv from "dotenv";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
 
 dotenv.config();
 const app = express();
@@ -17,6 +19,9 @@ const configureApp = () => {
 const addRouters = () => {
   app.use("/", authRouter);
 };
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   console.log("New request from HomePage.");
