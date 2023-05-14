@@ -1,26 +1,25 @@
-/* eslint-disable no-console */
-/* eslint-disable import/prefer-default-export */
-import User from "../user-data/userdata.js";
+import { createUser } from "../actions/actions.js";
 
-export const checkAuth = async (requestObject) => {
-  const { username, password } = requestObject;
-
+export const createAuth = async (requestObject) => {
   try {
-    const user = new User({ username, password });
-    await user.save();
+    const { username, password } = requestObject;
+    const newUser = await createUser({ username, password });
 
-    console.log("User saved successfully!");
-    const resStatus = 200;
-    const resJson = {
-      message: "You are now logged in!",
+    if (!newUser.success) {
+      return {
+        success: false,
+        message: "Username already exists.",
+        status: 200,
+      };
+    }
+
+    return {
+      success: true,
+      message: "User created successfully.",
+      status: 200,
     };
-    return { status: resStatus, json: resJson };
   } catch (error) {
-    console.error("Error saving user:", error);
-    const resStatus = 500;
-    const resJson = {
-      message: "An error occurred while saving the user.",
-    };
-    return { status: resStatus, json: resJson };
+    console.log(error);
+    return { success: false, message: "Error in creating user.", status: 500 };
   }
 };
