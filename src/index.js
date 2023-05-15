@@ -3,11 +3,10 @@
 /* eslint-disable no-console */
 import express from "express";
 import cors from "cors";
-import authRouter from "./routes/AuthRoute.js";
-import connectDB from "./config/connectDB.js";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
-import mongoose from "mongoose";
+import authRouter from "./routes/AuthRoute.js";
+import connectDB from "./config/connectDB.js";
 
 dotenv.config();
 const app = express();
