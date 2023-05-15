@@ -1,7 +1,7 @@
 // All user actions on the database.
 
 import mongoose from "mongoose";
-// import Userdata from "../user-data/userdata.js";
+import "../user-data/userdata.js";
 
 const User = mongoose.model("user");
 // export const getUser = async (req) => {};
