@@ -1,7 +1,7 @@
 {
-  "name": "studnet",
+  "name": "GoalFeed",
   "version": "1.0.0",
-  "description": "GoalFeed",
+  "description": "GoalFeed - Social network for football fans",
   "main": "index.js",
   "type": "module",
   "scripts": {
