@@ -2,8 +2,14 @@ import { createUser } from "../actions/actions.js";
 
 export const createAuth = async (requestObject) => {
   try {
-    const { username, password } = requestObject;
-    const newUser = await createUser({ username, password });
+    const { username, email, password, dateOfBirth, gender } = requestObject;
+    const newUser = await createUser({
+      username,
+      email,
+      password,
+      dateOfBirth,
+      gender,
+    });
 
     if (!newUser.success) {
       return {
