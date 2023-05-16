@@ -16,5 +16,5 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-const post = mongoose.model("posts", postSchema);
-export default post;
+const posts = mongoose.model("posts", postSchema);
+export default posts;
