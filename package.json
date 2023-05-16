@@ -1,5 +1,5 @@
 {
-  "name": "GoalFeed",
+  "name": "goalfeed",
   "version": "1.0.0",
   "description": "GoalFeed - Social network for football fans",
   "main": "index.js",
