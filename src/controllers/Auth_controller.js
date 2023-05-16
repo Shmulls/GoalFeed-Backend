@@ -3,6 +3,13 @@ import { createUser, checkUser } from "../actions/actions.js";
 export const createAuth = async (requestObject) => {
   try {
     const { username, email, password, dateOfBirth, gender } = requestObject;
+    if(!username || !email || !password || !dateOfBirth || !gender){
+      return {
+        success: false,
+        message: "all field require !",
+        status: 200,
+      };
+    }
     const newUser = await createUser({
       username,
       email,
@@ -10,7 +17,7 @@ export const createAuth = async (requestObject) => {
       dateOfBirth,
       gender,
     });
-
+    console.log(newUser)
     if (!newUser.success) {
       return {
         success: false,

@@ -1,7 +1,7 @@
 // All user actions on the database.
 
 import mongoose from "mongoose";
-import "../user-data/userdata.js";
+import "../models/userdata.js";
 
 const User = mongoose.model("user");
 // export const getUser = async (req) => {};
@@ -11,6 +11,7 @@ export const createUser = async (req) => {
   if (findUser) {
     return { success: false };
   }
+  //create is a bulid in func
   const user = await User.create(req);
   return user;
 };
