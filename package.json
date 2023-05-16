@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RaphaelBenoliel/StudNet.git"
+    "url": "git+https://github.com/Shmulls/GoalFeed-Backend"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/RaphaelBenoliel/StudNet/issues"
+    "url": "https://github.com/Shmulls/GoalFeed-Backend/issues"
   },
-  "homepage": "https://github.com/RaphaelBenoliel/StudNet#readme",
+  "homepage": "https://github.com/Shmulls/GoalFeed-Backend#readme",
   "dependencies": {
     "chai": "^4.3.7",
     "cors": "^2.8.5",
