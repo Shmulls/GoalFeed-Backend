@@ -11,7 +11,7 @@ export const createUser = async (req) => {
   if (findUser) {
     return { success: false };
   }
-  //create is a bulid in func
+  // create is a bulid in func
   const user = await User.create(req);
   return user;
 };
