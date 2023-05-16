@@ -4,16 +4,16 @@ const likesSchema = new mongoose.Schema({
     userid: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User', 
-        required: true 
+        required: true,
     },
     post: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Post', 
-        required: true 
+        required: true, 
     },
     created_at: { 
         type: Date, 
-        default: Date.now 
+        default: Date.now,
     },
 });
 
