@@ -37,6 +37,6 @@ export const createpost = async (req) => {
   if (!user) {
     return { success: false };
   }
-  const postcreted = await Posts.create( {userid,content} );
-  return { success: true , postcreted };
+  const postcreted = await Posts.create({ userid, content });
+  return { success: true, postcreted };
 };
