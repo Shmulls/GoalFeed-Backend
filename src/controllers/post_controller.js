@@ -8,13 +8,13 @@ export const createPost = async (requestObject) => {
       return {
         success: false,
         message: "username doesnt exist blalalalal.",
-        status: 200,
+        status: 400,
       };
     }
     return {
       success: true,
       message: "post added succsesfully",
-      status: 400,
+      status: 200,
     };
   } catch (error) {
     console.log(error);
