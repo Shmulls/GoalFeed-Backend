@@ -44,7 +44,7 @@ export const checkAuth = async (requestObject) => {
       return {
         success: false,
         message: "Username or password is incorrect.",
-        status: 200,
+        status: 400,
       };
     }
     return {

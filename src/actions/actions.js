@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import "../models/userdata.js";
 import "../models/posts.js";
 
+
 const User = mongoose.model("user");
 // export const getUser = async (req) => {};
 const Posts = mongoose.model("posts");

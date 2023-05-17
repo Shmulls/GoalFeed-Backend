@@ -9,6 +9,7 @@ import authRouter from "./routes/AuthRoute.js";
 import homeRoute from "./routes/homeRoute.js";
 import connectDB from "./config/connectDB.js";
 
+
 dotenv.config();
 const app = express();
 
