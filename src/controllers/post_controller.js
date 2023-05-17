@@ -7,7 +7,7 @@ export const createPost = async (requestObject) => {
     if (!post.success) {
       return {
         success: false,
-        message: "username doesnt exist.",
+        message: "username doesnt exist blalalalal.",
         status: 200,
       };
     }
