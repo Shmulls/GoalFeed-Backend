@@ -50,11 +50,10 @@ export const getallpostsaction = async () => {
   const posts = await Posts.find().lean();
   const postswithname = await Promise.all(posts.map(async (post) => {
     const username = await getusernamebyid(post.userid);
-    return { ...post, username, };
+    return { ...post, username };
   }));
   if (!posts) {
     return { success: false };
   }
   return { success: true, postswithname };
 };
-
