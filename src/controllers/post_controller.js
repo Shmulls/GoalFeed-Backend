@@ -1,4 +1,4 @@
-import { createpost } from "../actions/actions.js";
+import { createpost,getallpostsaction } from "../actions/actions.js";
 
 export const createPost = async (requestObject) => {
   try {
@@ -19,5 +19,26 @@ export const createPost = async (requestObject) => {
   } catch (error) {
     console.log(error);
     return { success: false, message: "Error in posting.", status: 500 };
+  }
+};
+
+export const getallposts = async (requestObject) => {
+  try {
+    const posts = await getallpostsaction();
+    if (!posts.success) {
+      return {
+        success: false,
+        message: "vent get all posts",
+        status: 400,
+      };
+    }
+    return {
+      success: true,
+      message: posts,
+      status: 200,
+    };
+  } catch (error) {
+    console.log(error);
+    return { success: false, message: "Error in get all posts", status: 500 };
   }
 };

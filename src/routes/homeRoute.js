@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import express from "express";
-import { createPost } from "../controllers/post_controller.js";
+import { createPost,getallposts } from "../controllers/post_controller.js";
 
 const homeRoute = express.Router();
 
@@ -11,16 +11,12 @@ homeRoute.post("/", async (req, res) => {
   return res.status(result.status || 500).json(result);
 });
 
-// homeRoute.get("/", async (req, res) => {
-//   const { username, email, password, dateOfBirth, gender } = req.body;
-//   const result = await createAuth({
-//     username,
-//     email,
-//     password,
-//     dateOfBirth,
-//     gender,
-//   });
-//   return res.status(result.status || 500).json(result);
-// });
+homeRoute.get("/", async (req, res) => {
+  const posts = await getallposts();
+  if (!posts.message) {
+    return res.status(400).json({ message: 'No posts found' })
+}
+  return res.json(posts.message);
+});
 
 export default homeRoute;

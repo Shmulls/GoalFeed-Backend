@@ -40,3 +40,21 @@ export const createpost = async (req) => {
   const postcreted = await Posts.create({ userid, content });
   return { success: true, postcreted };
 };
+
+export const getallpostsaction = async (req) => {
+  const posts = await Posts.find().lean();
+  const postswithname = await Promise.all(posts.map(async (post) => {
+    const username = await getusernamebyid(post.userid);
+    return {...post,username,};
+  }))
+  if (!posts) {
+    return { success: false };
+  }
+  return { success: true, postswithname };
+};
+
+export const getusernamebyid = async(req) =>{
+  const nameofuser = await User.findById(req);
+  return nameofuser.username;
+}
+
