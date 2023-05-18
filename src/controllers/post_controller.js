@@ -1,4 +1,4 @@
-import { createpost,getallpostsaction } from "../actions/actions.js";
+import { createpost, getallpostsaction } from "../actions/actions.js";
 
 export const createPost = async (requestObject) => {
   try {
@@ -22,7 +22,7 @@ export const createPost = async (requestObject) => {
   }
 };
 
-export const getallposts = async (requestObject) => {
+export const getallposts = async () => {
   try {
     const posts = await getallpostsaction();
     if (!posts.success) {

@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import express from "express";
-import { createPost,getallposts } from "../controllers/post_controller.js";
+import { createPost, getallposts } from "../controllers/post_controller.js";
 
 const homeRoute = express.Router();
 
@@ -14,7 +14,7 @@ homeRoute.post("/", async (req, res) => {
 homeRoute.get("/", async (req, res) => {
   const posts = await getallposts();
   if (!posts.message) {
-    return res.status(400).json({ message: 'No posts found' })
+    return res.status(400).json({ message: 'No posts found' });
 }
   return res.json(posts.message);
 });
