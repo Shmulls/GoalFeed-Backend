@@ -1,7 +1,6 @@
 /* eslint-disable import/extensions */
 import express from "express";
 import { checkAuth, createAuth } from "../controllers/Auth_controller.js";
-import "../index.js";
 
 const authRouter = express.Router();
 
