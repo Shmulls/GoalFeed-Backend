@@ -9,6 +9,7 @@ import homeRoute from "./routes/homeRoute.js";
 import authRouter from "./routes/AuthRoute.js";
 import upimageRoute from "./routes/upimageRoute.js";
 import connectDB from "./config/connectDB.js";
+import profileRoute from "./routes/profileRoute.js";
 
 dotenv.config();
 const app = express();
@@ -27,6 +28,7 @@ const addRouters = () => {
   app.use("/", authRouter);
   app.use("/home", homeRoute);
   app.use("/uploadimage", upimageRoute);
+  app.use("/profile", profileRoute);
 };
 
 // app.use(bodyParser.json());
