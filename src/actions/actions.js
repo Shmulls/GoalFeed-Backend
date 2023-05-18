@@ -15,7 +15,7 @@ export const createUser = async (req) => {
   }
   // create is a bulid in func
   const user = await User.create(req);
-  return user;
+  return { success: true, user };
 };
 
 export const checkUser = async (req) => {

@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import homeRoute from "./routes/homeRoute.js";
 import authRouter from "./routes/AuthRoute.js";
+import upimageRoute from "./routes/upimageRoute.js";
 import connectDB from "./config/connectDB.js";
 
 dotenv.config();
@@ -25,6 +26,7 @@ const configureApp = () => {
 const addRouters = () => {
   app.use("/", authRouter);
   app.use("/home", homeRoute);
+  app.use("/uploadimage", upimageRoute);
 };
 
 // app.use(bodyParser.json());

@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
   gender: {
     type: String,
   },
+  image64: {
+    type: String,
+    default: "new",
+  },
 });
 
 const User = mongoose.model("user", userSchema);
