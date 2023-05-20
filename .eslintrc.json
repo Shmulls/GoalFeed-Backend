@@ -10,6 +10,8 @@
     "sourceType": "module"
   },
   "rules": {
+    "consistent-return": "off",
+    "no-underscore-dangle": "off",
     "linebreak-style": 0,
     "quotes": [1, "single"],
     "import/prefer-default-export": "off",
