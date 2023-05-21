@@ -63,10 +63,28 @@ export const likePost = async (req, res) => {
     const updatedPost = await Post.findByIdAndUpdate(
       id,
       { likes: post.likes },
-      { new: true }
+      { new: true },
     );
 
     res.status(200).json(updatedPost);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
+export const editPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { description } = req.body.description;
+    const updated = await Post.findOneAndUpdate(
+      { _id: id },
+      { description: description },
+      { new: true }
+    );
+    if (!updated){
+      res.status(400).json({ message: "cent update this post" });
+    }
+    res.status(200).json(updated);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
