@@ -71,3 +71,16 @@ export const likePost = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+/* DELETE */
+export const deletepost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await collection.findOneAndDelete({ _id: id });
+    if (result) {
+      res.status(200).json({ message: "user deleted" });
+    }
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
