@@ -1,5 +1,5 @@
-import Post from '../models/Post.js';
-import User from '../models/User.js';
+import Post from "../models/Post.js";
+import User from "../models/User.js";
 
 /* CREATE */
 export const createPost = async (req, res) => {
@@ -63,7 +63,7 @@ export const likePost = async (req, res) => {
     const updatedPost = await Post.findByIdAndUpdate(
       id,
       { likes: post.likes },
-      { new: true },
+      { new: true }
     );
 
     res.status(200).json(updatedPost);
@@ -75,10 +75,12 @@ export const likePost = async (req, res) => {
 /* DELETE */
 export const deletepost = async (req, res) => {
   try {
+    console.log("delete post");
     const { id } = req.params;
-    const result = await collection.findOneAndDelete({ _id: id });
+    const result = await Post.findOneAndDelete({ _id: id });
+    console.log("result");
     if (result) {
-      res.status(200).json({ message: "user deleted" });
+      res.status(200).json({ message: "post deleted" });
     }
   } catch (err) {
     res.status(404).json({ message: err.message });
