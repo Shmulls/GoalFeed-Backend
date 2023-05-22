@@ -16,6 +16,7 @@ export const createPost = async (req, res) => {
       picturePath,
       likes: {},
       comments: [],
+      saved: {},
     });
     await newPost.save();
 
@@ -48,6 +49,21 @@ export const getPostsilike = async (req, res) => {
   }
 };
 
+export const getSavePosts = async (req, res) => {
+  try {
+    console.log("getSavePosts");
+    const { userId } = req.params;
+    const posts = await Post.find({
+      [`saved.${userId}`]: true,
+    });
+    console.log(posts);
+    res.status(200).json(posts);
+  } catch (err) {
+    console.log("ERRORPOSTS");
+    res.status(404).json({ message: err.message });
+  }
+};
+
 export const getUserPosts = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -58,7 +74,32 @@ export const getUserPosts = async (req, res) => {
   }
 };
 
-/* UPDATE */
+export const savePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { userId } = req.body;
+    const post = await Post.findById(id);
+    const isSaved = post.saved.get(userId);
+
+    if (isSaved) {
+      console.log("notSaved", isSaved);
+      post.saved.delete(userId);
+    } else {
+      console.log("isSaved", isSaved);
+      post.saved.set(userId, true);
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(
+      id,
+      { saved: post.saved },
+      { new: true }
+    );
+    res.status(200).json(updatedPost);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
 export const likePost = async (req, res) => {
   try {
     const { id } = req.params;
@@ -77,7 +118,6 @@ export const likePost = async (req, res) => {
       { likes: post.likes },
       { new: true }
     );
-
     res.status(200).json(updatedPost);
   } catch (err) {
     res.status(404).json({ message: err.message });
