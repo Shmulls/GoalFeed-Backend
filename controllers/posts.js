@@ -36,6 +36,18 @@ export const getFeedPosts = async (req, res) => {
   }
 };
 
+export const getPostsilike = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const posts = await Post.find({
+      [`likes.${userId}`]: true,
+    });
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
 export const getUserPosts = async (req, res) => {
   try {
     const { userId } = req.params;
