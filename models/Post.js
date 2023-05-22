@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const postSchema = mongoose.Schema(
   {
@@ -26,10 +26,14 @@ const postSchema = mongoose.Schema(
       type: Array,
       default: [],
     },
+    saved: {
+      type: Map,
+      of: Boolean,
+    },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
-const Post = mongoose.model('Post', postSchema);
+const Post = mongoose.model("Post", postSchema);
 
 export default Post;
