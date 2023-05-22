@@ -1,8 +1,8 @@
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
-import randomstring from 'randomstring';
-import User from '../models/User.js';
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
+import randomstring from "randomstring";
+import User from "../models/User.js";
 
 /* REGISTER USER */
 export const register = async (req, res) => {
@@ -48,14 +48,14 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-      console.log('User does not exist. ');
-      return res.status(400).json({ msg: 'User does not exist. ' });
+      console.log("User does not exist. ");
+      return res.status(400).json({ msg: "User does not exist. " });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      console.log('Invalid credentials. ');
-      return res.status(400).json({ msg: 'Invalid credentials. ' });
+      console.log("Invalid credentials. ");
+      return res.status(400).json({ msg: "Invalid credentials. " });
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
@@ -74,19 +74,19 @@ async function sendNewPasswordEmail(email, newPassword) {
 
   // First, define send settings by creating a new transporter:
   const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com', // SMTP server address (usually mail.your-domain.com)
+    host: "smtp.gmail.com", // SMTP server address (usually mail.your-domain.com)
     port: 465, // Port for SMTP (usually 465)
     secure: true, // Usually true if connecting to port 465
     auth: {
-      user: 'sshmoel1@gmail.com', // Your email address
-      pass: 'tcgrrxnsvfmxrmlt', // Password (for gmail, your app password)
+      user: "sshmoel1@gmail.com", // Your email address
+      pass: "tcgrrxnsvfmxrmlt", // Password (for gmail, your app password)
     },
   });
 
   const info = await transporter.sendMail({
-    from: 'sshmoel1@gmail.com',
+    from: "sshmoel1@gmail.com",
     to: `${email}`,
-    subject: 'Your new password',
+    subject: "Your new password",
     html: `
     <h1>Hello there from GoalFeed System</h1>
     <p>Your new password: ${newPassword}</p>
@@ -100,7 +100,7 @@ async function sendNewPasswordEmail(email, newPassword) {
 function generateRandomPassword() {
   const newPassword = randomstring.generate({
     length: 10, // Set the desired length of the password
-    charset: 'alphanumeric', // Use a combination of alphabets and numbers
+    charset: "alphanumeric", // Use a combination of alphabets and numbers
   });
 
   console.log(newPassword);
@@ -114,7 +114,7 @@ export const forgotpassword = async (req, res) => {
   try {
     const oldUser = await User.findOne({ email });
     if (!oldUser) {
-      return res.status(404).json({ message: 'User doesn\'t exist' });
+      return res.status(404).json({ message: "User doesn't exist" });
     }
     // Generate a new random password
     const newPassword = generateRandomPassword();
@@ -130,11 +130,11 @@ export const forgotpassword = async (req, res) => {
 
     return res.status(200).json({
       message:
-        'Password reset successful. Check your email for the new password.',
+        "Password reset successful. Check your email for the new password.",
     });
   } catch (error) {
     console.log(error);
     // Handle any potential errors
-    return res.status(500).json({ message: 'An error occurred' });
+    return res.status(500).json({ message: "An error occurred" });
   }
 };
