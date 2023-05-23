@@ -92,7 +92,7 @@ export const savePost = async (req, res) => {
     const updatedPost = await Post.findByIdAndUpdate(
       id,
       { saved: post.saved },
-      { new: true }
+      { new: true },
     );
     res.status(200).json(updatedPost);
   } catch (err) {
@@ -116,7 +116,7 @@ export const likePost = async (req, res) => {
     const updatedPost = await Post.findByIdAndUpdate(
       id,
       { likes: post.likes },
-      { new: true }
+      { new: true },
     );
     res.status(200).json(updatedPost);
   } catch (err) {
@@ -132,7 +132,7 @@ export const editPost = async (req, res) => {
     const updated = await Post.findOneAndUpdate(
       { _id: id },
       { description: description },
-      { new: true }
+      { new: true },
     );
     if (!updated) {
       res.status(400).json({ message: "cent update this post" });

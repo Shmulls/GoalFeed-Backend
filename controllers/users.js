@@ -1,5 +1,5 @@
-import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import User from "../models/User.js";
 
 /* READ */
 export const getUser = async (req, res) => {
@@ -18,7 +18,7 @@ export const getUserFriends = async (req, res) => {
     const user = await User.findById(id);
 
     const friends = await Promise.all(
-      user.friends.map((id1) => User.findById(id1))
+      user.friends.map((id1) => User.findById(id1)),
     );
     const formattedFriends = friends.map(
       ({ _id, firstName, lastName, phoneNumber, team, picturePath }) => ({
@@ -28,7 +28,7 @@ export const getUserFriends = async (req, res) => {
         phoneNumber,
         team,
         picturePath,
-      })
+      }),
     );
     res.status(200).json(formattedFriends);
   } catch (err) {
@@ -56,7 +56,7 @@ export const addRemoveFriend = async (req, res) => {
     await friend.save();
 
     const friends = await Promise.all(
-      user.friends.map((id3) => User.findById(id3))
+      user.friends.map((id3) => User.findById(id3)),
     );
     const formattedFriends = friends.map(
       ({ _id, firstName, lastName, phoneNumber, team, picturePath }) => ({
@@ -66,7 +66,7 @@ export const addRemoveFriend = async (req, res) => {
         phoneNumber,
         team,
         picturePath,
-      })
+      }),
     );
 
     res.status(200).json(formattedFriends);
@@ -77,8 +77,7 @@ export const addRemoveFriend = async (req, res) => {
 
 export const editUser = async (req, res) => {
   const { id } = req.params;
-  const { firstName, lastName, email, password, phoneNumber, picture } =
-    req.body;
+  const { firstName, lastName, email, password, phoneNumber, picture } = req.body;
   const salt = await bcrypt.genSalt();
   const passwordHash = await bcrypt.hash(password, salt);
 
