@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import bcrypt from "bcrypt";
 
 /* READ */
 export const getUser = async (req, res) => {
@@ -75,9 +76,44 @@ export const addRemoveFriend = async (req, res) => {
 };
 
 export const editUser = async (req, res) => {
-  console.log(req.body);
+  const { id } = req.params;
+  const { firstName, lastName, email, password, phoneNumber, picture } =
+    req.body;
+  const salt = await bcrypt.genSalt();
+  const passwordHash = await bcrypt.hash(password, salt);
+
   try {
-    console.log("editUser");
+    const user = await User.findById(id); // Replace 'userId' with the actual user ID
+    if (!user) {
+      // Handle the case when the user doesn't exist
+      return res.status(404).json({ error: "User not found" });
+    }
+    if (firstName) {
+      user.firstName = firstName;
+      console.log(firstName);
+    }
+
+    if (lastName) {
+      user.lastName = lastName;
+    }
+
+    if (email) {
+      user.email = email;
+    }
+
+    if (password) {
+      user.password = passwordHash;
+    }
+
+    if (phoneNumber) {
+      user.phoneNumber = phoneNumber;
+    }
+
+    if (picture) {
+      user.picture = picture;
+    }
+
+    await user.save();
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
