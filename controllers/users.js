@@ -90,7 +90,6 @@ export const editUser = async (req, res) => {
     }
     if (firstName) {
       user.firstName = firstName;
-      console.log(firstName);
     }
 
     if (lastName) {
