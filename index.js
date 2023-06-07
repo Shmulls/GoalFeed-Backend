@@ -12,6 +12,8 @@ import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
 import emailRoutes from "./routes/email.js";
+import searchRoutes from "./routes/search.js";
+import gameRoutes from "./routes/game.js";
 import { register } from "./controllers/auth.js";
 import { createPost } from "./controllers/posts.js";
 import { verifyToken } from "./middleware/auth.js";
@@ -51,6 +53,8 @@ app.use("/auth/forgot-password", emailRoutes);
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
+app.use("/search", searchRoutes);
+app.use("/game", gameRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
@@ -61,9 +65,5 @@ mongoose
   })
   .then(() => {
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
-
-    /* ADD DATA ONE TIME */
-    // User.insertMany(users);
-    // Post.insertMany(posts);
   })
   .catch((error) => console.log(`${error} did not connect`));
