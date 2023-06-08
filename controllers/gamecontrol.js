@@ -16,11 +16,11 @@ export const getactivegame = async (req, res) => {
 // Endpoint to get the guessing history for a user
 export const getactivegameiguess = async (req, res) => {
   try {
+    const { userId } = req.params;
     // Find all user guesses for the authenticated user
     const userGuesses = await UserGuess.find({
-      userId: req.user.userId,
+      userId,
     }).populate("gameId");
-
     // Filter user guesses based on active games
     const activeUserGuesses = userGuesses.filter(
       (guess) => guess.gameId && guess.gameId.isActive
@@ -45,11 +45,16 @@ export const makeguess = async (req, res) => {
     if (game.homeTeamScore !== null || game.awayTeamScore !== null) {
       return res.status(400).json({ message: "Game has already ended" });
     }
+    const { userId } = req.params;
     // Check if the user has already made a guess for this game
     const existingGuess = await UserGuess.findOne({
-      userId: req.user.userId,
+      userId,
       gameId,
     });
+    // const existingGuess = await UserGuess.findOne({
+    //   userId: req.user.userId,
+    //   gameId,
+    // });
 
     // If an existing guess is found, update it
     if (existingGuess) {
@@ -60,7 +65,7 @@ export const makeguess = async (req, res) => {
     }
     // Create a new user guess
     const userGuess = new UserGuess({
-      userId: req.user.userId,
+      userId,
       gameId,
       homeTeamScore,
       awayTeamScore,
