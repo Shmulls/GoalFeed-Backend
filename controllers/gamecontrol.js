@@ -103,9 +103,10 @@ export const addgame = (req, res) => {
 //to get all the game that done
 export const getendedgame = async (req, res) => {
   try {
+    const { userId } = req.params;
     // Find all user guesses for the authenticated user
     const userGuesses = await UserGuess.find({
-      userId: req.user.userId,
+      userId,
     }).populate("gameId");
 
     // Filter the user guesses to include only ended games and calculate points
