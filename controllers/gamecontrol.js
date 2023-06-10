@@ -129,6 +129,7 @@ export const getendedgame = async (req, res) => {
           endGameAwayTeamScore: guess.gameId.awayTeamScore,
           userHomeTeamScore: guess.homeTeamScore,
           userAwayTeamScore: guess.awayTeamScore,
+          week: guess.gameId.week,
           points: points,
         };
       });
