@@ -28,13 +28,14 @@ export const getfullname = async (req, res) => {
 export const getstaticdata = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log(id);
     const data = await Post.find({ userId: id })
     const totalposts = data.length;
     let totalLikes = 0;
     // Iterate over the posts and sum the likes
     data.forEach((post) => {
-      const likes = Object.keys(post.likes);
-      totalLikes += likes.length;
+      let likes = post.likes.size;
+      totalLikes += likes;
     });
     res.status(200).json({ totalposts, totalLikes });
   } catch (err) {
