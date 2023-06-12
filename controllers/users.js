@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
+import Post from "../models/Post.js";
 
 /* READ */
 export const getUser = async (req, res) => {
@@ -19,6 +20,23 @@ export const getfullname = async (req, res) => {
     const fullname = user.firstName + " " + user.lastName;
     const picture = user.picturePath;
     res.status(200).json({ fullname, picture });
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
+export const getstaticdata = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await Post.find({ userId: id })
+    const totalposts = data.length;
+    let totalLikes = 0;
+    // Iterate over the posts and sum the likes
+    data.forEach((post) => {
+      const likes = Object.keys(post.likes);
+      totalLikes += likes.length;
+    });
+    res.status(200).json({ totalposts, totalLikes });
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
