@@ -6,6 +6,7 @@ import {
   editUser,
   getfullname,
   getstaticdata,
+  deleteUser,
 } from "../controllers/users.js";
 import { verifyToken } from "../middleware/auth.js";
 
@@ -20,5 +21,8 @@ router.get("/:id/getstaticdata",  getstaticdata);
 /* UPDATE */
 router.patch("/:id/change", verifyToken, editUser);
 router.patch("/:id/:friendId", verifyToken, addRemoveFriend);
+
+/* UPDATE */
+router.delete("/:id/delete", verifyToken, deleteUser);
 
 export default router;

@@ -65,6 +65,36 @@ export const getUserFriends = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+/* DELETE */
+
+export const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = id;
+    console.log(userId);
+
+    await Post.deleteMany({ userId });
+
+    // Remove the user's ID from the likes array in all posts
+    await Post.updateMany(
+      { [`likes.${userId}`]: true }, // Use the converted ObjectId as the key
+      { $unset: { [`likes.${userId}`]: 1 } }
+    );
+
+    // Remove the user's ID from the friends array of all users
+    await User.updateMany(
+      { friends: userId },
+      { $pull: { friends: userId } }
+    );
+
+    await User.deleteOne({ _id: userId });
+
+    res.status(200).json({ message: "User and associated data deleted successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Failed to delete user and associated data" });
+  }
+};
 
 /* UPDATE */
 export const addRemoveFriend = async (req, res) => {
