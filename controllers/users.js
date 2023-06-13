@@ -29,7 +29,7 @@ export const getstaticdata = async (req, res) => {
   try {
     const { id } = req.params;
     console.log(id);
-    const data = await Post.find({ userId: id })
+    const data = await Post.find({ userId: id });
     const totalposts = data.length;
     let totalLikes = 0;
     // Iterate over the posts and sum the likes
@@ -49,7 +49,7 @@ export const getUserFriends = async (req, res) => {
     const user = await User.findById(id);
 
     const friends = await Promise.all(
-      user.friends.map((id1) => User.findById(id1)),
+      user.friends.map((id1) => User.findById(id1))
     );
     const formattedFriends = friends.map(
       ({ _id, firstName, lastName, phoneNumber, team, picturePath }) => ({
@@ -59,7 +59,7 @@ export const getUserFriends = async (req, res) => {
         phoneNumber,
         team,
         picturePath,
-      }),
+      })
     );
     res.status(200).json(formattedFriends);
   } catch (err) {
@@ -83,17 +83,18 @@ export const deleteUser = async (req, res) => {
     );
 
     // Remove the user's ID from the friends array of all users
-    await User.updateMany(
-      { friends: userId },
-      { $pull: { friends: userId } }
-    );
+    await User.updateMany({ friends: userId }, { $pull: { friends: userId } });
 
     await User.deleteOne({ _id: userId });
 
-    res.status(200).json({ message: "User and associated data deleted successfully" });
+    res
+      .status(200)
+      .json({ message: "User and associated data deleted successfully" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Failed to delete user and associated data" });
+    res
+      .status(500)
+      .json({ message: "Failed to delete user and associated data" });
   }
 };
 
@@ -117,7 +118,7 @@ export const addRemoveFriend = async (req, res) => {
     await friend.save();
 
     const friends = await Promise.all(
-      user.friends.map((id3) => User.findById(id3)),
+      user.friends.map((id3) => User.findById(id3))
     );
     const formattedFriends = friends.map(
       ({ _id, firstName, lastName, phoneNumber, team, picturePath }) => ({
@@ -127,7 +128,7 @@ export const addRemoveFriend = async (req, res) => {
         phoneNumber,
         team,
         picturePath,
-      }),
+      })
     );
 
     res.status(200).json(formattedFriends);
@@ -138,9 +139,11 @@ export const addRemoveFriend = async (req, res) => {
 
 export const editUser = async (req, res) => {
   const { id } = req.params;
-  const { firstName, lastName, email, password, phoneNumber, picture } = req.body;
-  const salt = await bcrypt.genSalt();
-  const passwordHash = await bcrypt.hash(password, salt);
+  const { firstName, lastName, email, password, phoneNumber, picture, team } =
+    req.body;
+  console.log(team);
+  // const salt = await bcrypt.genSalt();
+  // const passwordHash = await bcrypt.hash(password, salt);
 
   try {
     const user = await User.findById(id); // Replace 'userId' with the actual user ID
@@ -149,6 +152,7 @@ export const editUser = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
     if (firstName) {
+      console.log(firstName);
       user.firstName = firstName;
     }
 
@@ -169,7 +173,13 @@ export const editUser = async (req, res) => {
     }
 
     if (picture) {
-      user.picture = picture;
+      console.log(picture);
+      console.log(picture);
+      user.picturePath = picture;
+    }
+
+    if (team) {
+      user.team = team;
     }
 
     await user.save();
