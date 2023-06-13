@@ -141,7 +141,8 @@ export const editUser = async (req, res) => {
   const { id } = req.params;
   const { firstName, lastName, email, password, phoneNumber, picture, team } =
     req.body;
-  console.log(team);
+  console.log(req.body);
+
   // const salt = await bcrypt.genSalt();
   // const passwordHash = await bcrypt.hash(password, salt);
 
@@ -173,7 +174,6 @@ export const editUser = async (req, res) => {
     }
 
     if (picture) {
-      console.log(picture);
       console.log(picture);
       user.picturePath = picture;
     }
