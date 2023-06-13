@@ -159,11 +159,22 @@ export const editUser = async (req, res) => {
     }
 
     if (firstName) {
+      const posts = await Post.find({ userId: id });
+      posts.forEach(async (post) => {
+        post.firstName = firstName;
+        await post.save();
+      });
       console.log(firstName);
+
       user.firstName = firstName;
     }
 
     if (lastName) {
+      const posts = await Post.find({ userId: id });
+      posts.forEach(async (post) => {
+        post.lastName = lastName;
+        await post.save();
+      });
       user.lastName = lastName;
     }
 
@@ -181,6 +192,11 @@ export const editUser = async (req, res) => {
     }
 
     if (picturePath) {
+      const posts = await Post.find({ userId: id });
+      posts.forEach(async (post) => {
+        post.userPicturePath = picturePath;
+        await post.save();
+      });
       user.picturePath = picturePath;
     }
 
