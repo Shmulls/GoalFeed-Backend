@@ -139,18 +139,27 @@ export const addRemoveFriend = async (req, res) => {
 
 export const editUser = async (req, res) => {
   const { id } = req.params;
-  const { firstName, lastName, email, password, phoneNumber, picture, team } =
-    req.body;
-  // const salt = await bcrypt.genSalt();
-  // const passwordHash = await bcrypt.hash(password, salt);
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    phoneNumber,
+    picturePath,
+    team,
+  } = req.body;
+
+  console.log(req.body);
 
   try {
-    const user = await User.findById(id); // Replace 'userId' with the actual user ID
+    const user = await User.findById(id);
+
     if (!user) {
-      // Handle the case when the user doesn't exist
       return res.status(404).json({ error: "User not found" });
     }
+
     if (firstName) {
+      console.log(firstName);
       user.firstName = firstName;
     }
 
@@ -163,16 +172,16 @@ export const editUser = async (req, res) => {
     }
 
     if (password) {
-      user.password = passwordHash;
+      // Handle password hashing if required
+      user.password = password;
     }
 
     if (phoneNumber) {
       user.phoneNumber = phoneNumber;
     }
 
-    if (picture) {
-      console.log(picture);
-      user.picturePath = picture;
+    if (picturePath) {
+      user.picturePath = picturePath;
     }
 
     if (team) {
