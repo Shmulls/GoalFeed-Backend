@@ -16,10 +16,10 @@ const router = express.Router();
 router.get("/:id", verifyToken, getUser);
 router.get("/:id/friends", verifyToken, getUserFriends);
 router.get("/:id/getfullname", getfullname);
-router.get("/:id/getstaticdata",  getstaticdata); 
+router.get("/:id/getstaticdata", getstaticdata);
 
 /* UPDATE */
-router.patch("/:id/change", verifyToken, editUser);
+router.patch("/:id/change", upload.single("picture"), verifyToken, editUser);
 router.patch("/:id/:friendId", verifyToken, addRemoveFriend);
 
 /* UPDATE */

@@ -42,7 +42,7 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-const upload = multer({ storage });
+export const upload = multer({ storage });
 
 /* ROUTES WITH FILES */
 app.post("/auth/register", upload.single("picture"), register);
@@ -55,6 +55,7 @@ app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 app.use("/search", searchRoutes);
 app.use("/game", gameRoutes);
+app.use("/users", userRoutes(upload));
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
