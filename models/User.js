@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema(
   {
@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema(
     },
     picturePath: {
       type: String,
-      default: "90339.png",
+      default: '90339.png',
     },
     friends: {
       type: Array,
@@ -35,17 +35,17 @@ const UserSchema = new mongoose.Schema(
     },
     phoneNumber: {
       type: String,
-      default: "",
+      default: '',
     },
     team: {
       type: String,
-      default: "",
+      default: '',
     },
     viewedProfile: Number,
     impressions: Number,
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model('User', UserSchema);
 export default User;

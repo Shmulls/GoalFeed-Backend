@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 // Define the game schema
 const gameSchema = new mongoose.Schema({
@@ -18,6 +18,6 @@ const gameSchema = new mongoose.Schema({
     default: true,
   },
 });
-const Game = mongoose.model("Game", gameSchema);
+const Game = mongoose.model('Game', gameSchema);
 
 export default Game;

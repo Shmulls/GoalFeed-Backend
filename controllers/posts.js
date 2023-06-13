@@ -1,5 +1,5 @@
-import Post from "../models/Post.js";
-import User from "../models/User.js";
+import Post from '../models/Post.js';
+import User from '../models/User.js';
 
 /* CREATE */
 export const createPost = async (req, res) => {
@@ -51,7 +51,7 @@ export const getPostsilike = async (req, res) => {
 
 export const getSavePosts = async (req, res) => {
   try {
-    console.log("getSavePosts");
+    console.log('getSavePosts');
     const { userId } = req.params;
     const posts = await Post.find({
       [`saved.${userId}`]: true,
@@ -59,7 +59,7 @@ export const getSavePosts = async (req, res) => {
     console.log(posts);
     res.status(200).json(posts);
   } catch (err) {
-    console.log("ERRORPOSTS");
+    console.log('ERRORPOSTS');
     res.status(404).json({ message: err.message });
   }
 };
@@ -82,10 +82,10 @@ export const savePost = async (req, res) => {
     const isSaved = post.saved.get(userId);
 
     if (isSaved) {
-      console.log("notSaved", isSaved);
+      console.log('notSaved', isSaved);
       post.saved.delete(userId);
     } else {
-      console.log("isSaved", isSaved);
+      console.log('isSaved', isSaved);
       post.saved.set(userId, true);
     }
 
@@ -135,7 +135,7 @@ export const editPost = async (req, res) => {
       { new: true },
     );
     if (!updated) {
-      res.status(400).json({ message: "cent update this post" });
+      res.status(400).json({ message: 'cent update this post' });
     }
     res.status(200).json(updated);
   } catch (err) {
@@ -146,12 +146,12 @@ export const editPost = async (req, res) => {
 /* DELETE */
 export const deletepost = async (req, res) => {
   try {
-    console.log("delete post");
+    console.log('delete post');
     const { id } = req.params;
     const result = await Post.findOneAndDelete({ _id: id });
-    console.log("result");
+    console.log('result');
     if (result) {
-      res.status(200).json({ message: "post deleted" });
+      res.status(200).json({ message: 'post deleted' });
     }
   } catch (err) {
     res.status(404).json({ message: err.message });

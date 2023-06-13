@@ -17,7 +17,7 @@ export const getfullname = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findById(id);
-    const fullname = user.firstName + " " + user.lastName;
+    const fullname = `${user.firstName} ${user.lastName}`;
     const picture = user.picturePath;
     res.status(200).json({ fullname, picture });
   } catch (err) {
@@ -34,7 +34,7 @@ export const getstaticdata = async (req, res) => {
     let totalLikes = 0;
     // Iterate over the posts and sum the likes
     data.forEach((post) => {
-      let likes = post.likes.size;
+      const likes = post.likes.size;
       totalLikes += likes;
     });
     res.status(200).json({ totalposts, totalLikes });
@@ -149,6 +149,9 @@ export const editUser = async (req, res) => {
     team,
   } = req.body;
 
+  const salt = await bcrypt.genSalt();
+  const passwordHash = await bcrypt.hash(password, salt);
+
   console.log(req.body);
 
   try {
@@ -184,7 +187,7 @@ export const editUser = async (req, res) => {
 
     if (password) {
       // Handle password hashing if required
-      user.password = password;
+      user.password = passwordHash;
     }
 
     if (phoneNumber) {

@@ -1,4 +1,3 @@
-import User from "../models/User.js";
 import Game from "../models/Games.js";
 import UserGuess from "../models/UserGuess.js";
 
@@ -79,7 +78,7 @@ export const makeguess = async (req, res) => {
   }
 };
 
-//add game as meneger
+// add game as meneger
 export const addgame = (req, res) => {
   const { homeTeam, awayTeam, week } = req.body;
 
@@ -100,7 +99,29 @@ export const addgame = (req, res) => {
     });
 };
 
-//to get all the game that done
+const calculatePoints = (guess) => {
+  let points = 0;
+
+  // Check if the user guessed the result correctly (3 points)
+  if (
+    guess.homeTeamScore === guess.gameId.homeTeamScore &&
+    guess.awayTeamScore === guess.gameId.awayTeamScore
+  ) {
+    points = 3;
+  } else if (
+    (guess.homeTeamScore > guess.awayTeamScore &&
+      guess.gameId.homeTeamScore > guess.gameId.awayTeamScore) ||
+    (guess.homeTeamScore < guess.awayTeamScore &&
+      guess.gameId.homeTeamScore < guess.gameId.awayTeamScore) ||
+    (guess.homeTeamScore === guess.awayTeamScore &&
+      guess.gameId.homeTeamScore === guess.gameId.awayTeamScore)
+  ) {
+    points = 1;
+  }
+
+  return points;
+};
+// to get all the game that done
 export const getendedgame = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -111,13 +132,12 @@ export const getendedgame = async (req, res) => {
 
     // Filter the user guesses to include only ended games and calculate points
     const endedGames = userGuesses
-      .filter((guess) => {
-        return (
+      .filter(
+        (guess) =>
           guess.gameId.isActive === false && // Check if the game is not active (ended)
           guess.homeTeamScore !== null &&
-          guess.awayTeamScore !== null // Check if the user provided a guess for home and away team scores
-        );
-      })
+          guess.awayTeamScore !== null
+      )
       .map((guess) => {
         const points = calculatePoints(guess);
 
@@ -139,30 +159,4 @@ export const getendedgame = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
-};
-
-const calculatePoints = (guess) => {
-  let points = 0;
-
-  // Check if the user guessed the result correctly (3 points)
-  if (
-    guess.homeTeamScore === guess.gameId.homeTeamScore &&
-    guess.awayTeamScore === guess.gameId.awayTeamScore
-  ) {
-    points = 3;
-  }
-
-  // Check if the user guessed the winning identity (1 point)
-  else if (
-    (guess.homeTeamScore > guess.awayTeamScore &&
-      guess.gameId.homeTeamScore > guess.gameId.awayTeamScore) ||
-    (guess.homeTeamScore < guess.awayTeamScore &&
-      guess.gameId.homeTeamScore < guess.gameId.awayTeamScore) ||
-    (guess.homeTeamScore === guess.awayTeamScore &&
-      guess.gameId.homeTeamScore === guess.gameId.awayTeamScore)
-  ) {
-    points = 1;
-  }
-
-  return points;
 };
